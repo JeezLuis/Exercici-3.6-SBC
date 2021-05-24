@@ -1,22 +1,22 @@
 package Model;
 
 public class Neighbour {
-    private City city;
+    private Tree neighbour;
     private int distance;
     private int time;
 
-    public Neighbour(City city, int distance, int time) {
-        this.city = city;
+    public Neighbour(Tree city, int distance, int time) {
+        this.neighbour = city;
         this.distance = distance;
         this.time = time;
     }
 
-    public City getCity() {
-        return city;
+    public Tree getCity() {
+        return neighbour;
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public void setCity(Tree city) {
+        this.neighbour = city;
     }
 
     public int getDistance() {
