@@ -1,14 +1,17 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Graf {
     private HashMap<City, ArrayList<City>> llistaAdjacencia;
+    private ArrayList<Distancia> distancias = new ArrayList<>();
 
     public Graf(City [] nodes, Distancia[] distancias) {
         llistaAdjacencia = new HashMap<>();
         creaGraf(nodes, distancias);
+        this.distancias.addAll(Arrays.asList(distancias));
     }
 
     private void creaGraf(City[] nodes, Distancia[] distancies) {
@@ -67,5 +70,23 @@ public class Graf {
             adjsCopia = (ArrayList<City>) adjs.clone();
             llistaAdjacencia.put(g.getNodes().get(i), adjsCopia);
         }
+    }
+
+    public long getDistance(String origin, String destination){
+        for (int i = 0; i < distancias.size(); i++) {
+            if(distancias.get(i).getOrigin().equals(origin) && distancias.get(i).getDestination().equals(destination)){
+                return distancias.get(i).getDistance();
+            }
+        }
+        return -1;
+    }
+
+    public long getDuration(String origin, String destination){
+        for (int i = 0; i < distancias.size(); i++) {
+            if(distancias.get(i).getOrigin().equals(origin) && distancias.get(i).getDestination().equals(destination)){
+                return distancias.get(i).getDuration();
+            }
+        }
+        return -1;
     }
 }
