@@ -11,7 +11,7 @@ public class Graf {
         creaGraf(nodes, distancias);
     }
 
-    public void creaGraf(City[] nodes, Distancia[] distancies) {
+    private void creaGraf(City[] nodes, Distancia[] distancies) {
         City origen = null;
         City desti = null;
         for (int i = 0; i < distancies.length; i++) {
@@ -35,7 +35,7 @@ public class Graf {
 
     }
 
-    public void afegirAdjacent(City origen, City adj) {
+    private void afegirAdjacent(City origen, City adj) {
         if (!llistaAdjacencia.containsKey(origen)) {
             ArrayList<City> nodesAdjacents = new ArrayList<>();
             nodesAdjacents.add(adj);

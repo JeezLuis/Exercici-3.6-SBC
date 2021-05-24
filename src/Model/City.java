@@ -5,10 +5,10 @@ public class City {
     private String name;
     private String address;
     private String country;
-    private float latitude;
-    private float longitude;
+    private long latitude;
+    private long longitude;
 
-    public City(String name, String address, String country, float latitude, float longitude) {
+    public City(String name, String address, String country, long latitude, long longitude) {
         this.name = name;
         this.address = address;
         this.country = country;
@@ -40,19 +40,19 @@ public class City {
         this.country = country;
     }
 
-    public float getLatitude() {
+    public long getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(long latitude) {
         this.latitude = latitude;
     }
 
-    public float getLongitude() {
+    public long getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(long longitude) {
         this.longitude = longitude;
     }
 }
