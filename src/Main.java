@@ -10,7 +10,7 @@ public class Main {
         //TODO: Demanar al usuari de on surt i on va
 
         String from = "Barcelona";
-        String to = "Zaragoza";
+        String to = "Madrid";
 
         new AEstrella(id.getGraf(), from, to);
 

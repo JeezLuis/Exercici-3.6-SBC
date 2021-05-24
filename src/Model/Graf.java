@@ -6,12 +6,17 @@ import java.util.HashMap;
 
 public class Graf {
     private HashMap<City, ArrayList<City>> llistaAdjacencia;
+    private HashMap<City, Integer> depth;
     private ArrayList<Distancia> distancias = new ArrayList<>();
 
+    private City [] aux;
+
     public Graf(City [] nodes, Distancia[] distancias) {
+        this.aux = nodes;
         llistaAdjacencia = new HashMap<>();
         creaGraf(nodes, distancias);
         this.distancias.addAll(Arrays.asList(distancias));
+        resetDepth();
     }
 
     private void creaGraf(City[] nodes, Distancia[] distancies) {
@@ -34,6 +39,7 @@ public class Graf {
 
             afegirAdjacent(origen, desti);
             afegirAdjacent(desti, origen);
+
         }
 
     }
@@ -88,5 +94,21 @@ public class Graf {
             }
         }
         return -1;
+    }
+
+    public void resetDepth(){
+        depth = new HashMap<>();
+
+        for (City n: aux){
+            depth.put(n, -1);
+        }
+    }
+
+    public int getDepth(City city){
+        return depth.get(city);
+    }
+
+    public void setDepth(City city, int value){
+        depth.replace(city, value);
     }
 }
