@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ImportData {
 
 
-    //N-word
+    //Github fill de puta
     public ImportData(String path) {
         Gson gson = new Gson();
         JsonObject allData = null;
