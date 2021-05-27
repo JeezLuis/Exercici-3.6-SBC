@@ -43,7 +43,11 @@ public class AEstrella {
 
                 senseVisitar.remove(current);
                 for (City c: graf.getAdjacents(current)){
-                    if (c != ciutat_origen) senseVisitar.add(c);
+                    if (c != ciutat_origen){
+                        senseVisitar.add(c);
+                        graf.setDepth(c, (int) (graf.getDepth(current) + graf.getDistance(current.getName(),c.getName())));
+                    }
+
                 }
 
                 if (graf.getDepth(current) < graf.getDepth(minimum) || primera){
