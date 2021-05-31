@@ -1,4 +1,5 @@
 import Model.City;
+import Model.Dijkstra;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -38,6 +39,12 @@ public class Main {
                 new AEstrella(id.getGraf(), from, to);
 
                 new CSP(id.getGraf(), from, to);
+
+                Dijkstra dijkstra = new Dijkstra(id.getGraf(), from, to);
+
+                ArrayList<City> text = dijkstra.dijkstra();
+
+                dijkstra.mostrarDijkstra(text);
 
             }
 

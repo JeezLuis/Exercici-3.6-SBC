@@ -8,6 +8,8 @@ public class AEstrella {
     public AEstrella(Graf graf, String from, String to) {
         boolean trobat = false;
         boolean primera = true;
+        long distancia;
+        long temps;
 
         City ciutat_origen = getNodeFromGraf(graf, from);
         City ciutat_desti = getNodeFromGraf(graf, to);
@@ -35,8 +37,9 @@ public class AEstrella {
             }
 
             if (current == ciutat_desti){
-                System.out.println("He arribat!");
+                System.out.println("He arribat a "+current.getName()+"!");
                 trobat = true;
+                System.out.println();
                 break;
             }
             else{
@@ -51,7 +54,7 @@ public class AEstrella {
                 }
 
                 if (graf.getDepth(current) < graf.getDepth(minimum) || primera){
-                    System.out.println("Es "+current.getName()+" el millor cami? SI");
+                    System.out.println("Es "+current.getName()+" el millor cami? NO");
                     minimum = current;
                 }
                 else{

@@ -63,6 +63,10 @@ public class Graf {
         return new ArrayList<>(llistaAdjacencia.keySet());
     }
 
+    public int getNodesLength(){
+        return llistaAdjacencia.keySet().size();
+    }
+
     public ArrayList<City> getAdjacents(City node) {
         return llistaAdjacencia.get(node);
     }
@@ -110,5 +114,13 @@ public class Graf {
 
     public void setDepth(City city, int value){
         depth.replace(city, value);
+    }
+
+    public int getDistanceLength(){
+        return distancias.size();
+    }
+
+    public ArrayList<Distancia> getDistancias(){
+        return distancias;
     }
 }
