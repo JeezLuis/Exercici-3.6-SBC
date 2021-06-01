@@ -24,45 +24,40 @@ public class AEstrella {
         graf.resetDepth();
 
         ArrayList<City> senseVisitar = new ArrayList<>(graf.getAdjacents(ciutat_origen));
-
+        ArrayList<City> visitades = new ArrayList<>();
+        System.out.println("[A*] Surto de "+ciutat_origen.getName());
         while (senseVisitar.size() > 0){
-            City next = senseVisitar.get(0);
+            City next = senseVisitar.get(senseVisitar.size()-1);
             graf.setDepth(next, (int) (graf.getDepth(current) + graf.getDistance(current.getName(),next.getName())));
 
             current = next;
-
-            System.out.println("Opcions:");
-            for (City c: senseVisitar) {
-                System.out.println(c.getName());
-            }
-
-            if (current == ciutat_desti){
-                System.out.println("He arribat a "+current.getName()+"!");
-                trobat = true;
-                System.out.println();
-                break;
-            }
-            else{
-
+            if(visitades.contains(current)) {
                 senseVisitar.remove(current);
-                for (City c: graf.getAdjacents(current)){
-                    if (c != ciutat_origen){
-                        senseVisitar.add(c);
-                        graf.setDepth(c, (int) (graf.getDepth(current) + graf.getDistance(current.getName(),c.getName())));
+            }else{
+                if (current == ciutat_desti) {
+                    System.out.println("He arribat a " + current.getName() + "!");
+                    trobat = true;
+                    break;
+                } else {
+
+                    senseVisitar.remove(current);
+                    visitades.add(current);
+                    for (City c : graf.getAdjacents(current)) {
+                        if (c != ciutat_origen) {
+                            senseVisitar.add(c);
+                            graf.setDepth(c, (int) (graf.getDepth(current) + graf.getDistance(current.getName(), c.getName())));
+                        }
+
                     }
 
+                    if (graf.getDepth(current) < graf.getDepth(minimum) || primera) {
+                        System.out.println("Passo per " + current.getName());
+                        minimum = current;
+                    }
+                    //System.out.println("\n\n");
                 }
-
-                if (graf.getDepth(current) < graf.getDepth(minimum) || primera){
-                    System.out.println("Es "+current.getName()+" el millor cami? NO");
-                    minimum = current;
-                }
-                else{
-                    System.out.println("Es "+current.getName()+" el millor cami? NO");
-                }
-                System.out.println("\n\n");
+                primera = false;
             }
-            primera = false;
         }
     }
 

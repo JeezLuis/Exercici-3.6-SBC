@@ -47,20 +47,49 @@ public class CSP {
         current = from;
         //return backtrack(current,to,graf);
     }
+    /**
+    private void dijkstra(final NavigableSet<Node> q) {
+        Node u, v;
+        while (!q.isEmpty()) {
+            // vertex with shortest distance (first iteration will return source)
+            u = q.pollFirst();
+            if (u.getDistance() == Integer.MAX_VALUE)
+                break; // we can ignore u (and any other remaining vertices) since they are unreachable
 
-    public boolean backtrack(String current, String to, Graf graf){
-        if(completeAssigment(from, to)) return true;
-        for (City c: graf.getNodes()) {
+            // look at distances to each neighbour
+            for (Map.Entry<Node, Integer> a : u.neighbours.entrySet()) {
+                v = a.getKey(); // the neighbour in this iteration
+
+                final int alternateDist = u.getDistance() + a.getValue();
+                if (alternateDist < v.getDistance()) { // shorter path to neighbour found
+                    q.remove(v);
+                    v.setDistance(alternateDist);
+                    v.setPreviousNode(u);
+                    q.add(v);
+                }
+            }
         }
-        return false;
     }
 
-    public boolean completeAssigment(String from, String to){
-        if(from.equals(to)){
-            return true;
+    public void printPath(String endName) {
+        if (!graph.containsKey(endName)) {
+            System.err.printf("Graph doesn't contain end vertex \"%s\"\n", endName);
+            return;
         }
-        return false;
-    }
 
+        graph.get(endName).printPath();
+        System.out.println();
+    }**/
+
+    /**
+     * Prints the path from the source to every vertex (output order is not guaranteed)
+     */
+    /**
+    public void printAllPaths() {
+        for (Node v : graph.values()) {
+            v.printPath();
+            System.out.println();
+        }
+    }**/
 
 }
