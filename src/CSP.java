@@ -1,95 +1,82 @@
 import Model.City;
 import Model.Graf;
 
-/**
- * Set of variables X = {Ciutats}
- * Set of domains D = {CiutatA, CiutatB}foreach X^i that belongs to X
- * Set of constraints C = {CiutatA || CiutatB == Destination && Shortest Path && Can't go back}
- */
+import java.util.ArrayList;
 
-/**
- * Pseudocodi:
- * function BacktrackingSearch(csp)
- *  return Backtrack({},csp)
- *
- * function Backtrack(assignment, csp)
- *  if assignment is complete return assignment
- *  u_var=SelectUnassignedVariable(csp)
- *  for each value in OrderDomainValues(u_var, assignment, csp) do
- *      if isConsistent(value, assignment)
- *          add{u_var=value} to assignment
- *          inferences = Inference(csp, u_var, value)
- *          if inferences != failure
- *              add inferences to assignment
- *              result = Backtrack(assignment, csp)
- *              if result != failure then
- *                  return result
- *      remove {u_var=value} and inferences from assignment
- *  return failure
- *
- *  https://www.youtube.com/watch?v=lCrHYT_EhDs
- */
 public class CSP {
 
-    private Graf graf;
-    private String from;
-    private String current;
-    private String to;
-    private City route;
+    private String[] colors = {"Blau", "Vermell", "Negre", "Verd"};
 
-    public CSP(Graf graf, String from, String to) {
-        this.graf = graf;
-        this.from = from;
-        this.to = to;
+    private ArrayList<CityColor> final_list;
+
+    public CSP(Graf graf, City start) {
+        colorProblem(graf, start);
     }
 
-    public void backtrackingSearch(Graf graf){
-        current = from;
-        //return backtrack(current,to,graf);
-    }
-    /**
-    private void dijkstra(final NavigableSet<Node> q) {
-        Node u, v;
-        while (!q.isEmpty()) {
-            // vertex with shortest distance (first iteration will return source)
-            u = q.pollFirst();
-            if (u.getDistance() == Integer.MAX_VALUE)
-                break; // we can ignore u (and any other remaining vertices) since they are unreachable
+    public void colorProblem(Graf graf, City start_point){
+        final_list = new ArrayList<>();
 
-            // look at distances to each neighbour
-            for (Map.Entry<Node, Integer> a : u.neighbours.entrySet()) {
-                v = a.getKey(); // the neighbour in this iteration
+        final_list.add(new CityColor(start_point, ""));
 
-                final int alternateDist = u.getDistance() + a.getValue();
-                if (alternateDist < v.getDistance()) { // shorter path to neighbour found
-                    q.remove(v);
-                    v.setDistance(alternateDist);
-                    v.setPreviousNode(u);
-                    q.add(v);
+        while (graf.getNodes().size() != final_list.size()){
+
+            CityColor current = null;
+
+            for (CityColor cc: final_list) {
+                if (cc.getColor().equals("")){
+                    current = cc;
+                    for (String s: colors) {
+                        boolean es_fa_servir = false;
+                        for (CityColor cc_aux: final_list) {
+                            for (City adj: graf.getAdjacents(cc.getCity())) {
+                                if (cc_aux.getCity().equals(adj) && cc.getColor() == s) es_fa_servir = true;
+                            }
+                        }
+                        if (!es_fa_servir){
+                            cc.setColor(s);
+                        }
+                    }
+                }
+            }
+            for (City c: graf.getAdjacents(current.getCity())) {
+                for (CityColor aux : final_list) {
+                    if (!aux.getCity().equals(c)) final_list.add(new CityColor(c,""));
                 }
             }
         }
+
+        for (CityColor cc : final_list) {
+            System.out.println(cc.getCity().getName() + " -> " + cc.getColor());
+        }
+
     }
 
-    public void printPath(String endName) {
-        if (!graph.containsKey(endName)) {
-            System.err.printf("Graph doesn't contain end vertex \"%s\"\n", endName);
-            return;
+    private static class CityColor{
+        private City city;
+        private String color;
+
+        public CityColor(City city, String color) {
+            this.city = city;
+            this.color = color;
         }
 
-        graph.get(endName).printPath();
-        System.out.println();
-    }**/
-
-    /**
-     * Prints the path from the source to every vertex (output order is not guaranteed)
-     */
-    /**
-    public void printAllPaths() {
-        for (Node v : graph.values()) {
-            v.printPath();
-            System.out.println();
+        public City getCity() {
+            return city;
         }
-    }**/
+
+        public void setCity(City city) {
+            this.city = city;
+        }
+
+        public String getColor() {
+            return color;
+        }
+
+        public void setColor(String color) {
+            this.color = color;
+        }
+    }
 
 }
+
+

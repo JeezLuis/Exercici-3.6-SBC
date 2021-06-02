@@ -59,6 +59,27 @@ public class Main {
                 aStar.startAStar();
                 aStar.showRoute();
 
+
+                System.out.println("Selecciona per on començar a pintar:");
+                System.out.println("Origen: ");
+
+                String origen = scanner.nextLine();
+                City origin = null;
+
+                existeix = false;
+
+                for (City c: id.getGraf().getNodes()) {
+                    if(c.getName().equals(origen)) {
+                        existeix = true;
+                        origin = c;
+                    }
+                }
+
+                if (!existeix) System.out.println(from + " no es una ciutat registrada.");
+                else {
+                    //new CSP(id.getGraf(), origin);
+                }
+
                 /*
                 new CSP(id.getGraf(), from, to);
 
